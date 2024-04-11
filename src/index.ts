@@ -12,16 +12,23 @@ class RequestHandlerWrapper {
         this.requestHandler.setUpAppLevelMiddlewares(...middlewares);
     }
 
-    callAPILevelMiddlewares(apiKey: string, req: any, res: ServerResponse) {
-        this.requestHandler.callAPILevelMiddlewares(apiKey, req, res);
-    }
-
-    addUrlNotFoundEvent(callback: (req: any, res: ServerResponse) => void) {
+    addUrlNotFoundEvent(callback: (req: any, res: ServerResponse, errorMsg: string) => void) {
         this.requestHandler.addUrlNotFoundEvent(callback)
     }
 
-    parseUrl(url: string, method: string) {
-        this.requestHandler.parseUrl(url, method);
+    handleRequest(req: any, res: ServerResponse) {
+        const {apiKey, queryParams, params, errorMsg} = this.requestHandler.parseUrl(req.url, req.method);
+        if(!apiKey) {
+            this.requestHandler.emit('url-not-found', req, res, errorMsg);
+            return;
+        }
+
+        req.query = queryParams;
+        req.params = params;
+        this.requestHandler.currentUrl = req.url;
+        this.requestHandler.currentMethod = req.method;
+
+        this.requestHandler.callAPILevelMiddlewares(apiKey, req, res);
     }
 }
 

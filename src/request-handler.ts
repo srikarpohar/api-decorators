@@ -10,12 +10,27 @@ export type APIOfResource = {
 
 export class RequestHandler extends EventEmitter {
     apisOfResources: APIOfResource[] = [];
-    currentUrl: string = '';
-    currentMethod?: APIMethod;
     appLevelMiddlewares?: LinkedList<any> = new LinkedList();
     
     constructor() {
         super();
+    }
+
+    get currentUrl(): string {
+        return this.currentUrl;
+    }
+
+    set currentUrl(url: string) {
+        this.currentUrl = url;
+    }
+
+
+    get currentMethod(): APIMethod {
+        return this.currentMethod;
+    }
+
+    set currentMethod(method: APIMethod) {
+        this.currentMethod = method;
     }
 
     setUpAppLevelMiddlewares<T>(...middlewares: T[]) {
@@ -75,7 +90,7 @@ export class RequestHandler extends EventEmitter {
         }
     }
 
-    addUrlNotFoundEvent(callback: (req, res) => void) {
+    addUrlNotFoundEvent(callback: (req, res, errorMsg) => void) {
         this.on('url-not-found', callback);
     }
 
