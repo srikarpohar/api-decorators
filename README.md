@@ -1,16 +1,16 @@
 # API Decorators
 Custom implementation of api decorators similiar to overnightjs projects.
 
-### Request Handler
+## Request Handler
 The default export object is used to:
 
-#### setUpAppLevelMiddlewares
+### setUpAppLevelMiddlewares
 Set up application level middlewares
 
 ```requestHandler.setUpAppLevelMiddlewares([verifyUser])``` 
 where _verifyUser_ is a middleware function(callback).
 
-#### addUrlNotFoundEvent
+### addUrlNotFoundEvent
 Set up call back for url not found method: 
 ```
 requestHandler.addUrlNotFoundEvent((req: any, res: ServerResponse, errorMsg: string) => {
@@ -19,23 +19,23 @@ requestHandler.addUrlNotFoundEvent((req: any, res: ServerResponse, errorMsg: str
 })
 ```
 
-#### handleRequest
+### handleRequest
 Handle incoming http request:
 
 ```this.server.on('request', requestHandler.handleRequest)```
 
-### Decorators:
-#### Controller: 
+## Decorators:
+### Controller: 
 Used for creating api resource. 
 ```@Controller("books")```
-#### Methods used:
+### Methods used:
 ```@Get('books')``` etc.
 - All following HTTP Methods are used 
     - _Get_(GET)
     - _Post_(POST)
     - _Put_(PUT)
     - _Delete_(DELETE)
-#### Middleware: 
+### Middleware: 
 Middlewares for http methods.
 ```@Middleware([func1(), func2()])```
 
