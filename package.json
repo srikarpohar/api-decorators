@@ -1,0 +1,24 @@
+{
+  "name": "api-decorators-srikar",
+  "version": "1.1.1",
+  "description": "Library used for annotating api controller and methods",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "keywords": [
+    "apis",
+    "api-controllers",
+    "api-decorators"
+  ],
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "@types/node": "^20.1.4"
+  },
+  "author": "Srikar",
+  "license": "ISC"
+}
